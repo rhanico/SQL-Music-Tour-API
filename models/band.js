@@ -1,6 +1,55 @@
-const { Sequelize, DataTypes, Models } = require ( "sequelize" )
+'use strict';
+const { Model, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize(process.env.PG_URI)
+module.exports = (sequelize) => {
+  class Band extends Model {
+    static associate(models) {
+
+
+        
+    }
+  }
+
+  Band.init(
+    {
+      band_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      genre: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      time_start: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      end_time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Band',
+      tableName: 'band',
+      timestamps: false, 
+    }
+  );
+
+  return Band;
+};
+
+
+/**
+ const { Sequelize, DataTypes, Models } = require ( "sequelize" )
+
+// const sequelize = new Sequelize(process.env.PG_URI)
 
 // MDOEL
 
@@ -36,3 +85,5 @@ Band.init( {
 } )
 
 module.exports = Band
+
+ */
