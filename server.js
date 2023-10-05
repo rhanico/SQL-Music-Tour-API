@@ -14,6 +14,30 @@ require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+
+
+//bands_ontroller 
+app.use('/bands', bandsController);
+
+//events_controller
+app.use('/events', eventsController);
+
+//stages_controller
+app.use('/stages', stagesController);
+
+// ROOT
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: 'Welcome to the Tour API'
+    })
+})
+
+// LISTEN
+app.listen(process.env.PORT, () => {
+    console.log(`🎸 Rockin' on port: ${process.env.PORT}`)
+})
+
+
 // SEQUELIZE CONNECTION
 
 /*const sequelize = new Sequelize({
@@ -30,21 +54,3 @@ try {
     console.log( `Unable to Connect to DB: ${err}` )
 }
 */
-
-
-//bandsontroller 
-app.use('/bands', bandsController);
-app.use('/events', eventsController);
-app.use('/stages', stagesController);
-
-// ROOT
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Welcome to the Tour API'
-    })
-})
-
-// LISTEN
-app.listen(process.env.PORT, () => {
-    console.log(`🎸 Rockin' on port: ${process.env.PORT}`)
-})
