@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-const { Band } = db;
+const { Band, Stage, Event, SetTime, MeetGreet } = db;
 
 //  Route 
 router.get('/', async (req, res) => {

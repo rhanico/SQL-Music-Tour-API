@@ -2,7 +2,44 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-const { Event } = db;
+const { Event, Stage, SetTime, MeetGreet } = db;
+
+// route to find a particular event
+router.get('/:name', async (req, res) => {
+  const eventName = req.params.name;
+  try {
+    const event = await Event.findOne({
+      where: { name: eventName },
+      include: [
+        {
+          model: Stage,
+          include: [
+            {
+              model: SetTime,
+              attributes: ['start_time', 'end_time'],
+              order: [['start_time', 'ASC']],
+            },
+            {
+              model: MeetGreet,
+              attributes: ['name', 'start_time', 'end_time'],
+              order: [['start_time', 'ASC']],
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!event) {
+      res.status(404).json({ error: 'Event not found' });
+    } else {
+      res.json(event);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 // route
 router.get('/', async (req, res) => {

@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class StageEvent extends Model {
     static associate(models) {
-      // Define associations here if needed
+
     }
   }
 
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'StageEvent',
       tableName: 'stageEvent',
+      timestamps: false,
     }
   );
 
